@@ -45,7 +45,7 @@ public class Anonymization extends AllDirectives {
 
     private static CompletionStage<HttpResponse> urlRequest(String url, ActorSystem system) {
         log.info("Request "+url);
-        return Http.get(system).singleRequest(HttpRequest(url));
+        return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
 }
