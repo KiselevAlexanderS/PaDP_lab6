@@ -9,6 +9,7 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
@@ -38,7 +39,7 @@ public class AkkaHttpServer {
         this.system = ActorSystem.create("routes");
     }
 
-    public void start() throws IOException {
+    public void start() throws IOException, InterruptedException, KeeperException {
         final ZooKeeper zoo = new ZooKeeper(connectString, sessionTimeout, watcher -> log.info(watcher.toString()));
         final Http http = Http.get(system);
         final ActorMaterializer materia = ActorMaterializer.create(system);
