@@ -31,7 +31,7 @@ public class AkkaHttpServer {
     private Logger log = Logger.getLogger(AkkaHttpServer.class.getName());
 
     public AkkaHttpServer(String host, int port) {
-        this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
+        this.storage = system.actorOf(Props.create(StorageActor.class), "Storage");
         this.host = host;
         this.port = port;
         this.system = ActorSystem.create("routes");
