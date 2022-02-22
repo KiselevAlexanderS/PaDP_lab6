@@ -29,6 +29,8 @@ public class StorageActor extends AbstractActor {
     }
 
     private void receiveGetRandomServerMessage(GetRandomServerMessage msg) {
-
+        getSender().tell(
+                new
+        );
     }
 }
