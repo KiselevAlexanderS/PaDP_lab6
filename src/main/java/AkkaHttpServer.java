@@ -15,21 +15,5 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class AkkaHttpServer {
     ActorSystem system = ActorSystem.create("routes");
-    final AsyncHttpClient asyncHttpClient = asyncHttpClient();
-    final Http http = Http.get(system);
-    final ActorMaterializer materia = ActorMaterializer.create(system);
-
-    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
-
-    final CompletionStage<ServerBinding> binding = http.bindAndHandle(
-            routeFlow,
-            ConnectHttp.toHost("localhost", 8000),
-            materia
-    );
-        System.out.println("Server at localhost:8000/\n Press Enter to stop");
-        System.in.read();
-
-        binding
-                .thenCompose(ServerBinding::unbind)
-            .thenAccept(unbound -> system.terminate())
+    
 }
