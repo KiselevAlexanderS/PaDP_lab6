@@ -1,7 +1,9 @@
+import org.apache.zookeeper.KeeperException;
+
 import java.io.IOException;
 
 public class AnonymizerApp {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         if (args.length != 2) {
             System.out.println("Usage: AnonymizerApp <host> <post>");
             System.exit(-1);
@@ -11,6 +13,6 @@ public class AnonymizerApp {
         int port = Integer.parseInt(args[1]);
 
         AkkaHttpServer server = new AkkaHttpServer(host, port);
-//        server.start();
+        server.start();
     }
 }
