@@ -1,4 +1,5 @@
 import akka.NotUsed;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
@@ -14,7 +15,8 @@ import java.util.concurrent.CompletionStage;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class AkkaHttpServer {
-    ActorSystem system = ActorSystem.create("routes");
+    private ActorSystem system = ActorSystem.create("routes");
+    private ActorRef storageActor;
 
     public AkkaHttpServer() {
 
