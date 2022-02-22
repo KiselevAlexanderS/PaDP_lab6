@@ -31,6 +31,8 @@ public class AkkaHttpServer {
     private static int sessionTimeout = 3000;
     private static String serversPath = "/servers";
     private Logger log = Logger.getLogger(AkkaHttpServer.class.getName());
+    private AsyncHttpClient asyncHttpClient = asyncHttpClient();
+    ZooKeeper zoo;
 
     public AkkaHttpServer(String host, int port) {
         this.storage = system.actorOf(Props.create(StorageActor.class), "Storage");
@@ -40,7 +42,7 @@ public class AkkaHttpServer {
     }
 
     public void start() throws IOException, InterruptedException, KeeperException {
-        final ZooKeeper zoo = new ZooKeeper(connectString, sessionTimeout, watcher -> log.info(watcher.toString()));
+        zoo = new ZooKeeper(connectString, sessionTimeout, watcher -> log.info(watcher.toString()));
         final Http http = Http.get(system);
         final ActorMaterializer materia = ActorMaterializer.create(system);
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
