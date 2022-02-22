@@ -1,7 +1,7 @@
 public class ReturnRandomServerMessage {
     private String server;
 
-    public ReturnRandomServerMessage(Strin gserver) {
+    public ReturnRandomServerMessage(String server) {
         this.server = server;
     }
 
