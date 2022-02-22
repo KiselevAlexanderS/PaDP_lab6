@@ -1,6 +1,7 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.actor.Props;
 import akka.http.javadsl.ConnectHttp;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.ServerBinding;
@@ -19,7 +20,7 @@ public class AkkaHttpServer {
     private ActorRef storageActor;
 
     public AkkaHttpServer() {
-
+        this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
     }
 
     public void start() {
