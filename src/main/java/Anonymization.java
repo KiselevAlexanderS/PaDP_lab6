@@ -3,12 +3,14 @@ import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
+import akka.http.javadsl.model.Uri;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
+import javax.xml.ws.Response;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
@@ -46,7 +48,14 @@ public class Anonymization extends AllDirectives {
         return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count) {
-        return Patterns.ask(storage,new GetRandomServerMessage(), Duration.ofSeconds(3));
+    private CompletionStage<Response> requestWithLowerCount(String url, int count) {
+        return Patterns.ask(storage, new GetRandomServerMessage(), Duration.ofSeconds(3))
+                .thenApply(obj -> ((ReturnRandomServerMessage)obj).getServer())
+                .thenCompose(msg -> urlRequest(system, getUri(msg))
+        ())
+    }
+    
+    public static Uri getUri(String adr) {
+        return Uri.create("http://"+adr);
     }
 }
