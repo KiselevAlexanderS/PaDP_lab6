@@ -1,8 +1,5 @@
 import akka.actor.ActorRef;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 
 import java.util.logging.Logger;
 
@@ -22,5 +19,9 @@ public class ServersHandler {
     public void startServer(String host, int port) throws InterruptedException, KeeperException {
         String serverPath = zoo.create("/servers/"+host+":"+port, (host+":"+port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         log.info("Path connected");
+    }
+
+    public void close() throws InterruptedException, KeeperException {
+        zoo.removeAllWatches(serversPath, Watcher.WatcherType.Any, true);
     }
 }
