@@ -48,9 +48,9 @@ public class AkkaHttpServer {
         ServersHandler serverHandle = new ServersHandler(zoo, storage, serversPath);
         serverHandle.startServer(host, port);
 
-        final Anonymization anonymusServer;
+        final Anonymization anonymusServer = new Anonymization(storage, asyncHttpClient, zoo);
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ServerRoutes.createRoute(system).flow(system, materia);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = anonymusServer.createRoute(system).flow(system, materia);
 
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
