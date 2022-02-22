@@ -11,6 +11,7 @@ public class StorageActor extends AbstractActor {
 
     public StorageActor() {
         this.storage = new ArrayList<>();
+        this.randServer = new Random();
     }
 
     @Override
