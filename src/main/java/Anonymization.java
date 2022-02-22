@@ -9,6 +9,7 @@ import akka.pattern.Patterns;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
+import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class Anonymization extends AllDirectives {
                                             return count == 0 ?
                                                     completeWithFuture(urlRequest(url, system))
                                                     :
-                                                    completeWithFuture(requestWithLowerCount(url, count));
+                                                    completeWithFuture(requestWithLowerCount(url, count-1));
                                         }
                                 )
                         )
@@ -45,7 +46,7 @@ public class Anonymization extends AllDirectives {
         return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count, ActorSystem system) {
-        return Patterns.ask;
+    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count) {
+        return Patterns.ask(storage,new GetRandomServerMessage(), Duration.ofSeconds(3));
     }
 }
