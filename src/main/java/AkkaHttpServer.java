@@ -17,7 +17,7 @@ import java.util.concurrent.CompletionStage;
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class AkkaHttpServer {
-    private ActorSystem system = ActorSystem.create("routes");
+    private ActorSystem system;
     private ActorRef storageActor;
     private CompletionStage<ServerBinding> binding;
     private String host;
@@ -25,6 +25,8 @@ public class AkkaHttpServer {
 
     public AkkaHttpServer(String host, int port) {
         this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
+
+        this.system = = ActorSystem.create("routes");;
     }
 
     public void start() {
