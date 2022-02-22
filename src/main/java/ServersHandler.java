@@ -14,6 +14,8 @@ public class ServersHandler {
         this.zoo = zoo;
         this.serversStrorage = serversStrorage;
         this.serversPath = serversPath;
+
+        watchChildrenCallback(null);
     }
 
     public void startServer(String host, int port) throws InterruptedException, KeeperException {
