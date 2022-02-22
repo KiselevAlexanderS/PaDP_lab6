@@ -36,7 +36,7 @@ public class Anonymization extends AllDirectives {
                 get(() ->
                         parameter("url", url ->
                                 parameter("count", c ->
-                                            handleGetWithUrlCount(url, Integer.parseInt(c))
+                                        handleGetWithUrlCount(url, Integer.parseInt(c))
                                 )
                         )
                 )
