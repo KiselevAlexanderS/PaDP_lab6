@@ -1,20 +1,14 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import akka.http.javadsl.Http;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
-import akka.http.javadsl.model.Uri;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 import org.omg.asynchttpclient.Request;
 import org.omg.asynchttpclient.Response;
 
-import javax.xml.ws.Response;
 import java.net.ConnectException;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
