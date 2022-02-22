@@ -1,7 +1,9 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
+import akka.http.javadsl.Http$;
 import akka.http.javadsl.marshallers.jackson.Jackson;
+import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
@@ -43,7 +45,7 @@ public class Anonymization extends AllDirectives {
 
     private static CompletionStage<HttpResponse> urlRequest(String url, ActorSystem system) {
         log.info("Request "+url);
-        return Http.get(system);
+        return Http.get(system).singleRequest(HttpRequest(url));
     }
 
 }
