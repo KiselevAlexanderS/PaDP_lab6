@@ -19,8 +19,6 @@ public class AkkaHttpServer {
     final Http http = Http.get(system);
     final ActorMaterializer materia = ActorMaterializer.create(system);
 
-    final TestPerfomer test = new TestPerfomer(materia, system, asyncHttpClient);
-
     final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
 
     final CompletionStage<ServerBinding> binding = http.bindAndHandle(
