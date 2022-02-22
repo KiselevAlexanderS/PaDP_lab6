@@ -25,7 +25,7 @@ public class AkkaHttpServer {
     private CompletionStage<ServerBinding> binding;
     private String host;
     private int port;
-
+    ServersHandler serverHandle;
     private static String connectString = "127.0.0.1:2181";
     private static int sessionTimeout = 3000;
     private Logger log = Logger.getLogger(AkkaHttpServer.class.getName());
@@ -42,6 +42,8 @@ public class AkkaHttpServer {
         final Http http = Http.get(system);
         final ActorMaterializer materia = ActorMaterializer.create(system);
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
+
+        ServersHandler serverHandle = new ServersHandler(zoo, storage, serversPath);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ServerRoutes.createRoute(system).flow(system, materia);
 
