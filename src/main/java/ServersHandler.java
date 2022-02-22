@@ -3,6 +3,7 @@ import org.apache.zookeeper.*;
 
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class ServersHandler {
 
@@ -33,7 +34,13 @@ public class ServersHandler {
             log.info(event.toString());
         }
         try {
-
+            saveServer(
+                    zoo.getChildren(serversPath, this::watchChildrenCallback).stream()
+                            .map(s -> serversPath+"/"+s)
+                            .collect(Collectors.toList())
+            );
+        } catch (KeeperException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
