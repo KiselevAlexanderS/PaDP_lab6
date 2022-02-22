@@ -1,8 +1,6 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
-import akka.http.javadsl.Http$;
-import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
@@ -12,7 +10,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 public class Anonymization extends AllDirectives {
@@ -48,4 +45,7 @@ public class Anonymization extends AllDirectives {
         return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
+    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count, ActorSystem system) {
+        return Patterns.ask;
+    }
 }
