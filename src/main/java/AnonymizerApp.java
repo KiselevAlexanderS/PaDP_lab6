@@ -10,7 +10,7 @@ public class AnonymizerApp {
         String host = args[0];
         int port = Integer.parseInt(args[1]);
 
-        AkkaHttpServer server = new AkkaHttpServer();
+        AkkaHttpServer server = new AkkaHttpServer(host, port);
 //        server.start();
     }
 }
