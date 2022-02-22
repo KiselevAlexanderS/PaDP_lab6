@@ -30,9 +30,6 @@ public class ServersHandler {
     }
 
     private void watchChildrenCallback(WatchedEvent event) {
-        if (event != null) {
-            log.info(event.toString());
-        }
         try {
             saveServer(
                     zoo.getChildren(serversPath, this::watchChildrenCallback).stream()
