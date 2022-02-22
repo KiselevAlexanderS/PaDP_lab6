@@ -6,6 +6,6 @@ public class AnonimizerApp {
     public static void main(String[] args) {
         ActorSystem system = ActorSystem.create("routes");
         final Http http = Http.get(system);
-        final ActorMaterializer materia = ActorMaterializer.crete(system);
+        final ActorMaterializer materia = ActorMaterializer.create(system);
     }
 }
