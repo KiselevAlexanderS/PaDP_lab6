@@ -1,5 +1,6 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.http.javadsl.Http;
 import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.server.AllDirectives;
@@ -24,14 +25,14 @@ public class Anonymization extends AllDirectives {
         this.zoo = zoo;
     }
 
-    public Route createRoute(ActorRef RouteActor) {
+    public Route createRoute(ActorSystem system) {
         return route(
                 get(() ->
                         parameter("url", url ->
                                 parameter("count", c -> {
                                             int count = Integer.parseInt(c);
                                             return count == 0 ?
-                                                    completeWithFuture(urlRequest(url))
+                                                    completeWithFuture(urlRequest(url, system))
                                                     :
                                                     completeWithFuture(requestWithLowerCount(url, count));
                                         }
@@ -40,8 +41,9 @@ public class Anonymization extends AllDirectives {
                 );
     }
 
-    private static CompletionStage<HttpResponse> urlRequest(String url) {
-        log.info("");
+    private static CompletionStage<HttpResponse> urlRequest(String url, ActorSystem system) {
+        log.info("Request "+url);
+        return Http.get(system);
     }
 
 }
