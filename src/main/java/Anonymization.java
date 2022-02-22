@@ -48,13 +48,13 @@ public class Anonymization extends AllDirectives {
         return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<Response> requestWithLowerCount(String url, int count) {
+    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count, ActorSystem system) {
         return Patterns.ask(storage, new GetRandomServerMessage(), Duration.ofSeconds(3))
                 .thenApply(obj -> ((ReturnRandomServerMessage)obj).getServer())
-                .thenCompose(msg -> urlRequest(system, getUri(msg))
+                .thenCompose(msg -> urlRequest(getUri(msg), system).query()
         ())
     }
-    
+
     public static Uri getUri(String adr) {
         return Uri.create("http://"+adr);
     }
