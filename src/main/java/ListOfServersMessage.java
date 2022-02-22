@@ -6,4 +6,8 @@ public class ListOfServersMessage {
     public ListOfServersMessage(List<String> serversList) {
         this.serversList = serversList;
     }
+
+    public List<String> getServersList() {
+        return serversList;
+    }
 }
