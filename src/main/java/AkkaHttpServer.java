@@ -28,4 +28,8 @@ public class AkkaHttpServer {
     );
         System.out.println("Server at localhost:8000/\n Press Enter to stop");
         System.in.read();
+
+        binding
+                .thenCompose(ServerBinding::unbind)
+            .thenAccept(unbound -> system.terminate())
 }
