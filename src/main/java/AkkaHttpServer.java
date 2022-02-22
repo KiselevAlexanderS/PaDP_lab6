@@ -21,7 +21,7 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public class AkkaHttpServer {
     private ActorSystem system;
-    private ActorRef storageActor;
+    private ActorRef storage;
     private CompletionStage<ServerBinding> binding;
     private String host;
     private int port;
