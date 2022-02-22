@@ -10,8 +10,8 @@ import org.a
 public class AnonymizerApp {
     public static void main(String[] args) {
         ActorSystem system = ActorSystem.create("routes");
+        final AsyncHttpClient asyncHttpClient = asyncHttpClient();
         final Http http = Http.get(system);
-        final AsyncHttpClient asyncHttpClient = a
         final ActorMaterializer materia = ActorMaterializer.create(system);
 
         final Flow<HttpRequest , HttpResponse, NotUsed> routeFlow =
