@@ -54,12 +54,14 @@ public class AkkaHttpServer {
 
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost("localhost", 8000),
+                ConnectHttp.toHost(host, port),
                 materia
         );
     }
 
     public void close() {
+        asyncHttpClient.close();
+
         binding
                 .thenCompose(ServerBinding::unbind)
                 .thenAccept(unbound -> system.terminate());
