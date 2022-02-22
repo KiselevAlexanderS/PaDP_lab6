@@ -1,6 +1,7 @@
 import akka.actor.ActorRef;
 import org.apache.zookeeper.*;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class ServersHandler {
@@ -25,5 +26,18 @@ public class ServersHandler {
 
     public void close() throws InterruptedException, KeeperException {
         zoo.removeAllWatches(serversPath, Watcher.WatcherType.Any, true);
+    }
+
+    private void watchChildrenCallback(WatchedEvent event) {
+        if (event != null) {
+            log.info(event.toString());
+        }
+        try {
+
+        }
+    }
+
+    private void saveServer(List<String> servers) {
+        this.serversStrorage.tell(new ListOfServersMessage(servers), ActorRef.noSender());
     }
 }
