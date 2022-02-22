@@ -14,6 +14,7 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.omg.CORBA.Request;
 
 import javax.xml.ws.Response;
+import java.net.ConnectException;
 import java.time.Duration;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
@@ -62,6 +63,13 @@ public class Anonymization extends AllDirectives {
                         urlRequest(makeRequest(getServUrl(msg), url, count))
                                 .handle((resp, ex) -> handleBadRequest(resp, ex, msg))
                 );
+    }
+
+    private Object handleBadRequest(Response resp, Throwable ex, String msg) {
+        if (ex instanceof ConnectException) {
+            storage.tell(new DeleteServerMessage(msg), ActorRef.noSender());
+        }
+        return resp;
     }
 
     private Request makeRequest(String servUrl, String url, int count) {
