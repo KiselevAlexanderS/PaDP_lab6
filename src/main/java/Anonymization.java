@@ -34,16 +34,12 @@ public class Anonymization extends AllDirectives {
         return route(
                 get(() ->
                         parameter("url", url ->
-                                parameter("count", c -> {
-                                            int count = Integer.parseInt(c);
-                                            return count == 0 ?
-                                                    completeWithFuture(urlRequest(url, system))
-                                                    :
-                                                    completeWithFuture(requestWithLowerCount(url, count-1));
-                                        }
+                                parameter("count", c ->
+                                            handleGetWithUrlCount(url, Integer.parseInt(c))
                                 )
                         )
-                );
+                )
+        );
     }
 
     private Route handleGetWithUrlCount(String url, int count) {
