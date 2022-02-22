@@ -32,7 +32,7 @@ public class AkkaHttpServer {
 
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost("localhost", 8086),
+                ConnectHttp.toHost("localhost", 8000),
                 materia
         );
     }
