@@ -26,7 +26,7 @@ public class AkkaHttpServer {
     public AkkaHttpServer(String host, int port) {
         this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
 
-        this.system = = ActorSystem.create("routes");;
+        this.system = ActorSystem.create("routes");
     }
 
     public void start() {
