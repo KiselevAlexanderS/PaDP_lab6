@@ -19,7 +19,10 @@ public class StorageActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receiveGetRandomServerMessage).build();
+        return receiveBuilder()
+                .match(ListOfServersMessage.class, this::receiveListOfServers)
+                .match(GetRandomServerMessage.class, this::receiveGetRandomServerMessage)
+                .match(DeleteServerMessage.class, this::receiveDeleteMessage).build();
     }
 
     private void receiveListOfServers(ListOfServersMessage msg) {
@@ -32,5 +35,9 @@ public class StorageActor extends AbstractActor {
         getSender().tell(
                 new ReturnRandomServerMessage(storage.get(randServer.nextInt(storage.size()))), ActorRef.noSender()
         );
+    }
+
+    private void receiveDeleteMessage(DeleteServerMessage msg) {
+        this.storage.remove(msg.getServer());
     }
 }
