@@ -14,7 +14,6 @@ import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
 
@@ -64,7 +63,7 @@ public class AkkaHttpServer {
 
     public void close() throws IOException, InterruptedException, KeeperException {
         asyncHttpClient.close();
-//        serverHandle.removeAllWatches();
+        serverHandle.removeAllWatches();
         zoo.close();
 
         binding
