@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,10 @@ public class StorageActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(ListOfServersMessage.class,);
+        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers);
+    }
+
+    private void receiveListOfServers(ListOfServersMessage msg) {
+        log.Info()
     }
 }
