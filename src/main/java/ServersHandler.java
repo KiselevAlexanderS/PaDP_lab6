@@ -1,2 +1,4 @@
-package PACKAGE_NAME;public class ServerHandler {
+public class ServersHandler {
+
+    private String serversPath;
 }
