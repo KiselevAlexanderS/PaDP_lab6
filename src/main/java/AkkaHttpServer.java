@@ -23,6 +23,10 @@ public class AkkaHttpServer {
     private String host;
     private int port;
 
+    private static String connectString = "127.0.0.1:2181";
+    private static int sessionTimeout = 3000;
+    private Logger log = Logger.getLogger(AkkaHttpServer.class.getName());
+
     public AkkaHttpServer(String host, int port) {
         this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
         this.host = host;
