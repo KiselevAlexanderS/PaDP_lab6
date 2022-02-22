@@ -64,6 +64,10 @@ public class Anonymization extends AllDirectives {
                 );
     }
 
+    private Request makeRequest(String servUrl, String url, int count) {
+        return http.prepareGet(servUrl).addQueryParam("url", url).addQueryParam("url", url).
+    }
+
     private String getServUrl(String obj) {
         try {
             return new String(zoo.getData(obj, false, null));
