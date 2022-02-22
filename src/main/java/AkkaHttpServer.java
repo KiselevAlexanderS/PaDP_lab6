@@ -37,6 +37,10 @@ public class AkkaHttpServer {
         );
     }
 
+    public void close() {
+
+    }
+
     final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
 
     //System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
