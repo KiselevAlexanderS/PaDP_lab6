@@ -9,10 +9,12 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.logging.Logger;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
@@ -35,6 +37,7 @@ public class AkkaHttpServer {
     }
 
     public void start() {
+        final ZooKeeper zoo = new ZooKeeper(connectString, sessionTimeout, watcher -> log.info(watcher.toString()));
         final Http http = Http.get(system);
         final ActorMaterializer materia = ActorMaterializer.create(system);
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
