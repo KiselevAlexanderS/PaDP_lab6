@@ -4,5 +4,5 @@ public class ServersHandler {
 
     private String serversPath;
     private ActorRef serversStrorage;
-    private Zookeeper
+    private Zookeeper zoo;
 }
