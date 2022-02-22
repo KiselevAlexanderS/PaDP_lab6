@@ -49,7 +49,7 @@ public class AkkaHttpServer {
         storage = system.actorOf(Props.create(StorageActor.class), "Storage");
 
         ServersHandler serverHandle = new ServersHandler(zoo, storage, serversPath);
-        serverHandle.startServer(host, port);
+        serverHandle.startServer("localhost"+port, host, port);
 
         final Anonymization anonymusServer = new Anonymization(storage, asyncHttpClient, zoo);
 
@@ -64,7 +64,7 @@ public class AkkaHttpServer {
 
     public void close() throws IOException, InterruptedException, KeeperException {
         asyncHttpClient.close();
-        serverHandle.removeAllWatches();
+//        serverHandle.removeAllWatches();
         zoo.close();
 
         binding
