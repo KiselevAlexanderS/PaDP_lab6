@@ -1,6 +1,7 @@
+import java.io.IOException;
 
 public class AnonymizerApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             System.out.println("Usage: AnonymizerApp <host> <post>");
             System.exit(-1);
@@ -8,5 +9,9 @@ public class AnonymizerApp {
 
         String host = args[0];
         int port = Integer.parseInt(args[1]);
+
+        AkkaHttpServer server = new AkkaHttpServer();
+//        server.start();
+        System.in.read();
     }
 }
