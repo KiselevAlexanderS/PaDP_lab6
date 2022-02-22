@@ -5,5 +5,8 @@ public class AnonymizerApp {
             System.out.println("Usage: AnonymizerApp <host> <post>");
             System.exit(-1);
         }
+
+        String host = args[0];
+        String port = args[1];
     }
 }
