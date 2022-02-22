@@ -1,4 +1,5 @@
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import sun.rmi.runtime.Log;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class StorageActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receiveGetRandomServerMessage);
+        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receiveGetRandomServerMessage).build();
     }
 
     private void receiveListOfServers(ListOfServersMessage msg) {
@@ -30,7 +31,7 @@ public class StorageActor extends AbstractActor {
 
     private void receiveGetRandomServerMessage(GetRandomServerMessage msg) {
         getSender().tell(
-                new ReturnRandomServerMessage();
+                new ReturnRandomServerMessage(storage.get(randServer.nextInt(storage.size()))), ActorRef.noSender()
         );
     }
 }
