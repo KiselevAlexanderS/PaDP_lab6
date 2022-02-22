@@ -11,6 +11,7 @@ import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 import org.asynchttpclient.AsyncHttpClient;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
@@ -18,6 +19,7 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 public class AkkaHttpServer {
     private ActorSystem system = ActorSystem.create("routes");
     private ActorRef storageActor;
+    private CompletionStage<ServerBinding> binding;
 
     public AkkaHttpServer() {
         this.storageActor = system.actorOf(Props.create(StorageActor.class), "Storage");
@@ -38,15 +40,8 @@ public class AkkaHttpServer {
     }
 
     public void close() {
-
+        binding
+                .thenCompose(ServerBinding::unbind)
+                .thenAccept(unbound -> system.terminate());
     }
-
-    final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
-
-    //System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
-    //System.in.read();
-
-    binding
-            .thenCompose(ServerBinding::unbind)
-            .thenAccept(unbound -> system.terminate());
 }
