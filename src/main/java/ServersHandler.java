@@ -7,7 +7,7 @@ public class ServersHandler {
     private ActorRef serversStrorage;
     private ZooKeeper zoo;
 
-    private ServersHandler(ZooKeeper zoo, ActorRef serversStrorage, String serversPath) {
+    public ServersHandler(ZooKeeper zoo, ActorRef serversStrorage, String serversPath) {
         this.zoo = zoo;
         this.serversStrorage = serversStrorage;
         this.serversPath = serversPath;
