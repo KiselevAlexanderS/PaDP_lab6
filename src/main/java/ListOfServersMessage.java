@@ -2,4 +2,8 @@ import java.util.List;
 
 public class ListOfServersMessage {
     private List<String> serversList;
+
+    public ListOfServersMessage(List<String> serversList) {
+        this.serversList = serversList;
+    }
 }
