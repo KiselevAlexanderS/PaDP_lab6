@@ -63,6 +63,8 @@ public class AkkaHttpServer {
 
     public void close() {
         asyncHttpClient.close();
+        serverHandle.close();
+        zoo.close();
 
         binding
                 .thenCompose(ServerBinding::unbind)
