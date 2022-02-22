@@ -19,10 +19,16 @@ public class StorageActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receiveGet;
+        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receiveGetRandomServerMessage);
     }
 
     private void receiveListOfServers(ListOfServersMessage msg) {
-        log.Info()
+        log.info("List of servers: " + msg.getServersList());
+        this.storage.clear();
+        this.storage.addAll(msg.getServersList());
+    }
+
+    private void receiveGetRandomServerMessage(GetRandomServerMessage msg) {
+
     }
 }
