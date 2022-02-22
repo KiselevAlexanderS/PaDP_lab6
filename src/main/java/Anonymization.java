@@ -1,10 +1,15 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.http.javadsl.marshallers.jackson.Jackson;
+import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
+import akka.pattern.Patterns;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
-public class Anonymization {
+import java.util.concurrent.Future;
+
+public class Anonymization extends AllDirectives {
     private ActorRef storage;
     private AsyncHttpClient http;
     private ZooKeeper zoo;
@@ -15,9 +20,5 @@ public class Anonymization {
         this.zoo = zoo;
     }
 
-    public Route createRoute(ActorSystem system) {
-        return route(
 
-        );
-    }
 }
