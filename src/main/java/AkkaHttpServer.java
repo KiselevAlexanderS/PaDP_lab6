@@ -11,6 +11,8 @@ import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.CompletionStage;
 
+import static org.asynchttpclient.Dsl.asyncHttpClient;
+
 public class AkkaHttpServer {
     ActorSystem system = ActorSystem.create("routes");
     final AsyncHttpClient asyncHttpClient = asyncHttpClient();
