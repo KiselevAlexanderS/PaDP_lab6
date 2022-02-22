@@ -28,6 +28,7 @@ public class AkkaHttpServer {
     ServersHandler serverHandle;
     private static String connectString = "127.0.0.1:2181";
     private static int sessionTimeout = 3000;
+    private static String serversPath = "/servers";
     private Logger log = Logger.getLogger(AkkaHttpServer.class.getName());
 
     public AkkaHttpServer(String host, int port) {
