@@ -19,7 +19,7 @@ public class StorageActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers);
+        return receiveBuilder().match(ListOfServersMessage.class, this::receiveListOfServers).match(GetRandomServerMessage.class, this::receive;
     }
 
     private void receiveListOfServers(ListOfServersMessage msg) {

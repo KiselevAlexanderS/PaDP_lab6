@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class GetRandomServerMessage {
+public class GetRandomServerMessage {
+    public GetRandomServerMessage() {
+        
+    }
 }
