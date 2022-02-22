@@ -12,6 +12,7 @@ import akka.stream.javadsl.Flow;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class AkkaHttpServer {
         this.system = ActorSystem.create("routes");
     }
 
-    public void start() {
+    public void start() throws IOException {
         final ZooKeeper zoo = new ZooKeeper(connectString, sessionTimeout, watcher -> log.info(watcher.toString()));
         final Http http = Http.get(system);
         final ActorMaterializer materia = ActorMaterializer.create(system);
