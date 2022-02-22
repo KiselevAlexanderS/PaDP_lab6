@@ -5,5 +5,7 @@ public class ReturnRandomServerMessage {
         this.server = server;
     }
 
-    public String
+    public String getServer() {
+        return server;
+    }
 }
