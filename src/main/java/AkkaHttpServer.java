@@ -28,7 +28,7 @@ public class AkkaHttpServer {
         final ActorMaterializer materia = ActorMaterializer.create(system);
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = instance.createRoute(system).flow*
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = instance.createRoute(system).flow(system, materia);
     }
 
     final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
