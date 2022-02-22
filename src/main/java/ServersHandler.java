@@ -12,4 +12,8 @@ public class ServersHandler {
         this.serversStrorage = serversStrorage;
         this.serversPath = serversPath;
     }
+
+    public void StartServer(String host, int port) {
+        String serverPath = zoo.create("/servers/"+host+":"+port);
+    }
 }
