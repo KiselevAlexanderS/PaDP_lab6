@@ -10,11 +10,13 @@ import org.asynchttpclient.AsyncHttpClient;
 
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 public class Anonymization extends AllDirectives {
     private ActorRef storage;
     private AsyncHttpClient http;
     private ZooKeeper zoo;
+    private static Logger log = Logger.getLogger(Anonymization.class.getName());
 
     public Anonymization(ActorRef storage, AsyncHttpClient http, ZooKeeper zoo) {
         this.storage = storage;
