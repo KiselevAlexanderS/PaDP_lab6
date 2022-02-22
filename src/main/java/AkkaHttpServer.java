@@ -45,7 +45,7 @@ public class AkkaHttpServer {
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
 
         ServersHandler serverHandle = new ServersHandler(zoo, storage, serversPath);
-        serverHandle.startServer()
+        serverHandle.startServer(host, port);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ServerRoutes.createRoute(system).flow(system, materia);
 

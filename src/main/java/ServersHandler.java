@@ -19,7 +19,7 @@ public class ServersHandler {
         this.serversPath = serversPath;
     }
 
-    public void StartServer(String host, int port) throws InterruptedException, KeeperException {
+    public void startServer(String host, int port) throws InterruptedException, KeeperException {
         String serverPath = zoo.create("/servers/"+host+":"+port, (host+":"+port).getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         log.info("Path connected");
     }
