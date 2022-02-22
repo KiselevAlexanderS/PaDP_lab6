@@ -28,16 +28,16 @@ public class AkkaHttpServer {
         final ActorMaterializer materia = ActorMaterializer.create(system);
         final AsyncHttpClient asyncHttpClient = asyncHttpClient();
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = instance.createRoute(system).flow(system, materia);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = ServerRoutes.createRoute(system).flow(system, materia);
+
+        final CompletionStage<ServerBinding> binding = http.bindAndHandle(
+                routeFlow,
+                ConnectHttp.toHost("localhost", 8086),
+                materia
+        );
     }
 
     final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = test.createFlow();
-
-    final CompletionStage<ServerBinding> binding = http.bindAndHandle(
-            routeFlow,
-            ConnectHttp.toHost("localhost", 8086),
-            materializer
-    );
 
     //System.out.println("Server online at http://localhost:8080/\nPress RETURN to stop...");
     //System.in.read();
