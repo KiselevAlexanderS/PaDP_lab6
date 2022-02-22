@@ -25,7 +25,7 @@ public class ServersHandler {
         log.info("Path connected");
     }
 
-    public void close() throws InterruptedException, KeeperException {
+    public void removeAllWatches() throws InterruptedException, KeeperException {
         zoo.removeAllWatches(serversPath, Watcher.WatcherType.Any, true);
     }
 
