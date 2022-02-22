@@ -7,9 +7,11 @@ import akka.http.javadsl.model.Uri;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
+import org.omg.CORBA.Request;
 
 import javax.xml.ws.Response;
 import java.time.Duration;
@@ -44,9 +46,17 @@ public class Anonymization extends AllDirectives {
                 );
     }
 
-    private static CompletionStage<HttpResponse> urlRequest(String url, ActorSystem system) {
-        log.info("Request "+url);
-        return Http.get(system).singleRequest(HttpRequest.create(url));
+    private Route handleGetWithUrlCount(String url, int count) {
+        CompletionStage<Response> response = count == 0 ?
+                urlRequest(http.prepareGet(url).build())
+                :
+                requestWithLowerCount(url, count-1);
+        return completeOKWithFutureString(response.thenApply(Response::getResponseBody));
+    }
+
+    private CompletionStage<Response> urlRequest(Request req) {
+        log.info("Request "+req.getUri());
+        return http.executeRequest(req).toCompletableFuture();
     }
 
     private CompletionStage<Response> requestWithLowerCount(String url, int count) {
