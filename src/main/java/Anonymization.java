@@ -7,6 +7,7 @@ import akka.http.javadsl.model.Uri;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.asynchttpclient.AsyncHttpClient;
 
@@ -48,14 +49,20 @@ public class Anonymization extends AllDirectives {
         return Http.get(system).singleRequest(HttpRequest.create(url));
     }
 
-    private CompletionStage<HttpResponse> requestWithLowerCount(String url, int count, ActorSystem system) {
+    private CompletionStage<Response> requestWithLowerCount(String url, int count) {
         return Patterns.ask(storage, new GetRandomServerMessage(), Duration.ofSeconds(3))
-                .thenApply(obj -> ((ReturnRandomServerMessage)obj).getServer())
-                .thenCompose(msg -> urlRequest(getUri(msg), system).query()
-        ())
+                .thenApply(o -> ((ReturnRandomServerMessage)o).getServer())
+                .thenCompose(msg ->
+                        urlRequest(makeRequest(getServUrl(msg), url, count))
+                                .handle((resp, ex) -> handleBadRequest(resp, ex, msg))
+                );
     }
 
-    public static Uri getUri(String adr) {
-        return Uri.create("http://"+adr);
+    private String getServUrl(String obj) {
+        try {
+            return new String(zoo.getData(obj, false, null));
+        } catch (KeeperException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
